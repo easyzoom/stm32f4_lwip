@@ -30,8 +30,9 @@
 #include "cmsis_os.h"
 #include "lwip/tcpip.h"
 /* Within 'USER CODE' section, code will be kept by default at each generation */
+#include "switch_app.h"
 /* USER CODE BEGIN 0 */
-
+uint8_t MACAddr[6] ;
 /* USER CODE END 0 */
 
 /* Private define ------------------------------------------------------------*/
@@ -39,7 +40,7 @@
 #define TIME_WAITING_FOR_INPUT ( portMAX_DELAY )
 /* USER CODE BEGIN OS_THREAD_STACK_SIZE_WITH_RTOS */
 /* Stack size of the interface thread */
-#define INTERFACE_THREAD_STACK_SIZE ( 350 )
+#define INTERFACE_THREAD_STACK_SIZE ( 512 )
 /* USER CODE END OS_THREAD_STACK_SIZE_WITH_RTOS */
 /* Network interface name */
 #define IFNAME0 's'
@@ -135,7 +136,7 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef* ethHandle)
     HAL_NVIC_SetPriority(ETH_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(ETH_IRQn);
   /* USER CODE BEGIN ETH_MspInit 1 */
-
+    switch_reset();
   /* USER CODE END ETH_MspInit 1 */
   }
 }
@@ -208,16 +209,10 @@ static void low_level_init(struct netif *netif)
 
    uint8_t MACAddr[6] ;
   heth.Instance = ETH;
-  heth.Init.AutoNegotiation = ETH_AUTONEGOTIATION_ENABLE;
+  heth.Init.AutoNegotiation = ETH_AUTONEGOTIATION_DISABLE;
   heth.Init.Speed = ETH_SPEED_100M;
   heth.Init.DuplexMode = ETH_MODE_FULLDUPLEX;
   heth.Init.PhyAddress = M88E6390_PHY_ADDRESS;
-  MACAddr[0] = 0x00;
-  MACAddr[1] = 0x80;
-  MACAddr[2] = 0xE1;
-  MACAddr[3] = 0x00;
-  MACAddr[4] = 0x00;
-  MACAddr[5] = 0x00;
   heth.Init.MACAddr = &MACAddr[0];
   heth.Init.RxMode = ETH_RXINTERRUPT_MODE;
   heth.Init.ChecksumMode = ETH_CHECKSUM_BY_HARDWARE;
@@ -612,27 +607,27 @@ u32_t sys_now(void)
 void ethernetif_set_link(void const *argument)
 
 {
-  uint32_t regvalue = 0;
+//  uint32_t regvalue = 0;
   struct link_str *link_arg = (struct link_str *)argument;
 
   for(;;)
   {
     /* Read PHY_BSR*/
-    HAL_ETH_ReadPHYRegister(&heth, PHY_BSR, &regvalue);
+//    HAL_ETH_ReadPHYRegister(&heth, PHY_BSR, &regvalue);
 
-    regvalue &= PHY_LINKED_STATUS;
+//    regvalue &= PHY_LINKED_STATUS;
 
-    /* Check whether the netif link down and the PHY link is up */
-    if(!netif_is_link_up(link_arg->netif) && (regvalue))
-    {
+//    /* Check whether the netif link down and the PHY link is up */
+//    if(!netif_is_link_up(link_arg->netif) && (regvalue))
+//    {
       /* network cable is connected */
       netif_set_link_up(link_arg->netif);
-    }
-    else if(netif_is_link_up(link_arg->netif) && (!regvalue))
-    {
-      /* network cable is dis-connected */
-      netif_set_link_down(link_arg->netif);
-    }
+//    }
+//    else if(netif_is_link_up(link_arg->netif) && (!regvalue))
+//    {
+//      /* network cable is dis-connected */
+//      netif_set_link_down(link_arg->netif);
+//    }
 
     /* Suspend thread for 200 ms */
     osDelay(200);
@@ -749,7 +744,35 @@ __weak void ethernetif_notify_conn_changed(struct netif *netif)
 #endif /* LWIP_NETIF_LINK_CALLBACK */
 
 /* USER CODE BEGIN 9 */
+uint16_t ethernetif__read_regs(uint8_t phyAddr, uint8_t regAddr, uint32_t* regvalue)
+{
+    uint8_t addr;
+    uint16_t state;
+    
+    //taskENTER_CRITICAL(); 
+    addr = heth.Init.PhyAddress;
+    heth.Init.PhyAddress = phyAddr;
+    state = HAL_ETH_ReadPHYRegister(&heth,regAddr,regvalue);
+    heth.Init.PhyAddress = addr;
+    //taskEXIT_CRITICAL();  
+    
+    return state;
+}
 
+uint16_t ethernetif__write_regs(uint8_t phyAddr, uint8_t regAddr, uint32_t regvalue)
+{
+    uint8_t addr;
+    uint16_t state;
+    
+    //taskENTER_CRITICAL();  
+    addr = heth.Init.PhyAddress;
+    heth.Init.PhyAddress = phyAddr;
+    state = HAL_ETH_WritePHYRegister(&heth,regAddr,regvalue);
+    heth.Init.PhyAddress = addr;
+    //taskEXIT_CRITICAL();  
+    
+    return state;
+}
 /* USER CODE END 9 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

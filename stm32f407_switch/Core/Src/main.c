@@ -21,11 +21,19 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "lwip.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "kubot_debug.h"
+#include "httpd.h"
+#include "httpd_cgi_ssi.h"
+#include "sys_info.h"
+#include "delay.h"
+#include "fs_api.h"
+#include "switch_app.h"
+#include "sys_info.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -39,7 +47,9 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+uint16_t led_twinkle_t = 500;
+uint8_t reboot_flag = 0;
+uint16_t reboot_timeout = 0;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -67,7 +77,7 @@ void MX_FREERTOS_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  uint8_t state = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -88,8 +98,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-
+  delay_init();
+  state = fs_api_init();
+  sys_info_config(state);
+  printf("HR-LINK system starting...\r\n");
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -153,7 +167,101 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+/**
+ * @brief 系统重启倒计时
+ * 
+ * @param [in] time 毫秒后系统重启，0无效
+ * @return void
+ */
+void set_reboot(uint16_t time)
+{
+    reboot_timeout = time;
+}
 
+/**
+ * @brief 系统重启处理
+ * 
+ * @param void
+ * @return void
+ */
+void reboot(void)
+{
+    static uint16_t time = 0;
+    if(reboot_timeout)
+    {
+        if(time++ > reboot_timeout)reboot_flag = 1;
+    }
+    if(reboot_flag)
+    {
+        taskENTER_CRITICAL();  /* 进入临界区 */
+        NVIC_SystemReset(); // 复位
+    }
+}
+
+/**
+ * @brief 系统恢复默认设置
+ * 
+ * @param void
+ * @return 
+ */
+int sys_default(void)
+{
+    int state = 0;
+    
+    state = fs_api_format();
+    if(state)
+    {
+        LOG_PRINT_ERROR("File system format error\r\n");    
+    }
+    set_reboot(200);
+    return state;
+}    
+/**
+ * @brief 系统指示灯
+ * 
+ * @param void
+ * @return void
+ */
+void led_ctrl(void)
+{
+    static uint16_t led_t = 0;
+    
+    led_t++;
+    if(led_t < led_twinkle_t+1)
+    {
+        HAL_GPIO_WritePin(GPIOE, GPIO_PIN_10, GPIO_PIN_RESET); 
+    }
+    else if(led_t > led_twinkle_t && led_t < 2*led_twinkle_t)
+    {
+        HAL_GPIO_WritePin(GPIOE, GPIO_PIN_10, GPIO_PIN_SET);
+    }
+    else
+    {
+        led_t = 0;
+    }
+}
+
+
+void StartDefaultTask(void const * argument)
+{
+  /* init code for LWIP */
+  MX_LWIP_Init();
+  /* USER CODE BEGIN StartDefaultTask */
+  switch_cfg();
+  httpd_init();
+  httpd_ssi_init();
+  httpd_cgi_init();
+  /* Infinite loop */
+  for(;;)
+  {
+    led_ctrl();
+    web_login_monitor();
+    reboot();
+    switch_app();
+    osDelay(1);
+  }
+  /* USER CODE END StartDefaultTask */
+}
 /* USER CODE END 4 */
 
  /**

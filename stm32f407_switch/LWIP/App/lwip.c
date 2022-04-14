@@ -51,7 +51,18 @@ uint8_t NETMASK_ADDRESS[4];
 uint8_t GATEWAY_ADDRESS[4];
 
 /* USER CODE BEGIN 2 */
+void refresh_ip4(void)
+{
+    netif_set_down(&gnetif);
+    /* IP addresses initialization without DHCP (IPv4) */
+    IP4_ADDR(&ipaddr, IP_ADDRESS[0], IP_ADDRESS[1], IP_ADDRESS[2], IP_ADDRESS[3]);
+    IP4_ADDR(&netmask, NETMASK_ADDRESS[0], NETMASK_ADDRESS[1] , NETMASK_ADDRESS[2], NETMASK_ADDRESS[3]);
+    IP4_ADDR(&gw, GATEWAY_ADDRESS[0], GATEWAY_ADDRESS[1], GATEWAY_ADDRESS[2], GATEWAY_ADDRESS[3]);
 
+    /* add the network interface (IPv4/IPv6) with RTOS */
+    netif_set_addr(&gnetif, &ipaddr, &netmask, &gw);
+    netif_set_up(&gnetif);
+}
 /* USER CODE END 2 */
 
 /**
@@ -60,18 +71,18 @@ uint8_t GATEWAY_ADDRESS[4];
 void MX_LWIP_Init(void)
 {
   /* IP addresses initialization */
-  IP_ADDRESS[0] = 192;
-  IP_ADDRESS[1] = 168;
-  IP_ADDRESS[2] = 0;
-  IP_ADDRESS[3] = 200;
-  NETMASK_ADDRESS[0] = 255;
-  NETMASK_ADDRESS[1] = 255;
-  NETMASK_ADDRESS[2] = 255;
-  NETMASK_ADDRESS[3] = 0;
-  GATEWAY_ADDRESS[0] = 192;
-  GATEWAY_ADDRESS[1] = 168;
-  GATEWAY_ADDRESS[2] = 0;
-  GATEWAY_ADDRESS[3] = 1;
+//  IP_ADDRESS[0] = 192;
+//  IP_ADDRESS[1] = 168;
+//  IP_ADDRESS[2] = 0;
+//  IP_ADDRESS[3] = 200;
+//  NETMASK_ADDRESS[0] = 255;
+//  NETMASK_ADDRESS[1] = 255;
+//  NETMASK_ADDRESS[2] = 255;
+//  NETMASK_ADDRESS[3] = 0;
+//  GATEWAY_ADDRESS[0] = 192;
+//  GATEWAY_ADDRESS[1] = 168;
+//  GATEWAY_ADDRESS[2] = 0;
+//  GATEWAY_ADDRESS[3] = 1;
 
 /* USER CODE BEGIN IP_ADDRESSES */
 /* USER CODE END IP_ADDRESSES */
@@ -112,7 +123,7 @@ void MX_LWIP_Init(void)
   link_arg.semaphore = Netif_LinkSemaphore;
   /* Create the Ethernet link handler thread */
 /* USER CODE BEGIN OS_THREAD_DEF_CREATE_CMSIS_RTOS_V1 */
-  osThreadDef(LinkThr, ethernetif_set_link, osPriorityBelowNormal, 0, configMINIMAL_STACK_SIZE * 2);
+  osThreadDef(LinkThr, ethernetif_set_link, osPriorityBelowNormal, 0, 512);
   osThreadCreate (osThread(LinkThr), &link_arg);
 /* USER CODE END OS_THREAD_DEF_CREATE_CMSIS_RTOS_V1 */
 

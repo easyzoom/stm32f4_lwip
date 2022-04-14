@@ -33,7 +33,7 @@ struct link_str {
 
 /* Within 'USER CODE' section, code will be kept by default at each generation */
 /* USER CODE BEGIN 0 */
-
+extern uint8_t MACAddr[6] ;
 /* USER CODE END 0 */
 
 /* Exported functions ------------------------------------------------------- */
@@ -48,7 +48,8 @@ u32_t sys_jiffies(void);
 u32_t sys_now(void);
 
 /* USER CODE BEGIN 1 */
-
+uint16_t ethernetif__read_regs(uint8_t phyAddr, uint8_t regAddr, uint32_t* regvalue);
+uint16_t ethernetif__write_regs(uint8_t phyAddr, uint8_t regAddr, uint32_t regvalue);
 /* USER CODE END 1 */
 #endif
 
