@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="application; charset=utf-8" />
+<meta http-equiv="x-ua-compatible" content="edge" />
+<title>jump</title>
+
+<script> 
+    function acturl()
+    {
+        parent.location.href="index.shtml";
+    }
+</script>
+</head>
+<body>
+<script>
+    alert("登录信息失效，请重新登录"); 
+    setTimeout("acturl()",500);
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="init.js"></script>
+<script>
+incMeta(),
+incCss("css/in.css"),
+incJs("all.js");
+incJs("sys_setting.js");
+</script>
+<title>sys_setting</title>
+<script>
+var nf = {
+    ip: ["192.168.1.200"],
+    nm: ["255.255.255.0"],
+    gw: ["192.168.1.1"],
+    mac: ["70-B3-D5-0B-70-00"],
+};
+</script>
+<!--#sysst_page-->
+</head>
+<body onload="loadValue()">
+<div id="div_tip_mask" class="TIP_MASK">
+        <div id="div_tip_svr" class="TIP">
+            <span id="sp_tip_svr" class="TIP_CONTENT"></span>
+        </div>
+</div>
+<div class=IF_FEILD>
+    <div class="binfo">
+        <fieldset>
+            <legend> <span id="systemInformation" class="CONTENT_TITLE">系统设置</span> </legend>
+            <form name="ip_setting" action="sys_setting.cgi" enctype="multipart/form-data">
+                <table class="LBORDER" width=360px>
+                    <tr>
+                        <td class="TD_NAME_COL" width=100px>IP地址：</td>
+                        <td class="TD_CONTENT"><input class=SET_INPUT id="txt_addr" name="ip_address" size="32" maxlength="31" value="192.168.1.200"></td>
+                    </tr>
+                    <tr>
+                        <td class="TD_NAME_COL" width=100px>子网掩码：</td>
+                        <td class="TD_CONTENT"><input class=SET_INPUT id="txt_mask" name="ip_netmask" size="32" maxlength="31" value="255.255.255.0"></td>
+                    </tr>
+                    <tr>
+                        <td class="TD_NAME_COL" width=100px>默认网关：</td>
+                        <td class="TD_CONTENT"><input class=SET_INPUT id="txt_gateway" name="nm_gateway" size="32" maxlength="31" value="192.168.1.1"></td>
+                    </tr>
+                    <tr>
+                        <td class="TD_NAME_COL" width=100px>MAC地址：</td>
+                        <td class="TD_CONTENT"><input class=SET_INPUT id="txt_mac" name="nm_mac" size="32" maxlength="31" value="70-B3-D5-0B-70-00" spellcheck ="false"></td>
+                    </tr>
+                </table>
+            </form>
+            <table class="BTN_WRAPPER" align="center">
+                <tr>
+                    <td class="BTN_WRAPPER"><a class="BTN">
+                        <input type="button" value="应用" name="apply" onclick="doSubmit()" class="BTN_NORMAL_BTN">
+                        </a></td>
+                    <td class="BTN_WRAPPER"></td>
+                    
+                    <td class="BTN_WRAPPER"><a class="BTN">
+                        <form action="/sys_setting.cgi">
+                        <input type="submit" value="重启" name="reset" class="BTN_NORMAL_BTN" onclick="return cf_rst()">
+                        </form>
+                    </a></td>
+                </tr>
+                <tr>
+                  <td class="BTN_WRAPPER"></td>  
+                </tr>   
+                <tr>
+                    <td class="BTN_WRAPPER"><a class="BTN">
+                        <form action="/sys_setting.cgi">
+                        <input type="submit" value="恢复出厂设置" name="default" class="BTN_NORMAL_BTN"  onclick="return cf_dft()">
+                        </form>
+                    </a></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <!--left--> 
+</div>
+<!--total--> 
+<script>
+        "" != tip && (ShowTips("sp_tip_svr", tip),
+        startDownScroll("div_tip_svr"))
+</script>
+</body>
+</html>

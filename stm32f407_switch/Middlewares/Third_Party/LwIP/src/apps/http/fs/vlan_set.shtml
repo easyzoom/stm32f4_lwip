@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="init.js"></script>
+<script>
+incMeta(),
+incCss("css/in.css"),
+incJs("all.js");
+incJs("pvlan.js");
+</script>
+<title>vlan_set</title>
+<script>
+<!--  
+    <!--#pvl_set-->
+    var pmax = pvl_dt.pmax
+          , t_num = pvl_dt.t_num
+          , pvIds = pvl_dt.vl_tb
+          , pvMbrs = pvl_dt.mbrs
+          , pvState = pvl_dt.vl_s;
+
+    setTimeout("selMbrPorts()",300);
+//-->
+</script>
+</head>
+
+<body>
+<div id="div_tip_mask" class="TIP_MASK">
+    <div id="div_tip_svr" class="TIP"> <span id="sp_tip_svr" class="TIP_CONTENT"></span> </div>
+</div>
+<div  class=IF_FEILD>
+    <div class="pvl_set">
+        <fieldset>
+            <legend> <span id="systemInformation" class="CONTENT_TITLE">端口VLAN设置</span> </legend>
+            <div id="div_sec_title">
+                <form action="/pvl_set.cgi">
+                    <table width=95% margin-top=25px>
+                        <tr>
+                            <td><table class="FRAMEWORK">
+                                    <tr>
+                                        <td class="SBLANK"></td>
+                                        <td align="left"><span class="NORMAL">端口VLAN使能：</span></td>
+                                        <td class="SBLANK"></td>
+                                        <td><input name="pvl_e" id="pvl_e" type="radio" value=1 class="NORMAL">
+                                            <span class="NORMAL">启用</span></td>
+                                        <td class="SBLANK"></td>
+                                        <td><input name="pvl_e" id="pvl_d" type="radio" value=0 class="NORMAL" checked>
+                                            <span class="NORMAL">禁用</span></td>
+                                    </tr>
+                                </table></td>
+                            <td><a class="BTN">
+                                <input class="BTN_NORMAL_BTN" type="submit" value="应用" name="pvlan_mode" onclick="return pvlanEn()">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <script>
+                    pvlanStateInit()
+                </script> 
+            </div>
+            <div>
+                <form action="/pvl_set.cgi">
+                    <table class="LBORDER" id="p_table">
+                        <tr class="TABLE_HEAD">
+                           <td class=TD_NAME_COL width=615px>选择端口作为一组VLAN成员</td>
+                            <script>
+                            setColSpan('p_table',0,pmax);
+                            </script>    
+                        </tr>
+                        <tr>
+                            <td class=td_vl_table width=100px align="center" rowspan="3">
+                                    <input type="hidden" name="psl" id="psl_id" readonly="readonly"></input> 
+                                     <select id=SL_PORT_LIST oninput=selMbrPorts()>
+                                    <script>
+                                        for (var i = 1; i <= pmax; i++)
+                                            docW("<option value=" + i + " >"+"Table" + i+ "</option>")
+                                            $id("psl_id").value = $id("SL_PORT_LIST").value;
+                                    </script>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=TD_NAME_COL width=50px>端口</td>
+                            <script>
+                                for (var i = 1; i <= pmax; i++)
+                                    docW("<td>" + i + "</td>")
+                            </script> 
+                        </tr>
+                        <tr>
+                            <td class=TD_NAME_COL>成员</td>
+                            <script>
+                                for (var i = 1; i <= pmax; i++)
+                                    docW("<td><input type=checkbox name=mpvl" + i + " id=port_" + i + " value=" + i + "></td>")
+                            </script> 
+                        </tr>
+                    </table>
+                    <div>
+                        <table align=center>
+                            <tr>
+                                <td><a class=BTN>
+                                    <input type=submit value=修改 name=pvl_add class=BTN_NORMAL_BTN onclick="return pvlAdd()">
+                                    </a></td>
+                            </tr>
+                            <tr>
+                              <td style=width:15px></td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <strong>使能PVLAN后，仅处于同一张VLAN表中的port成员能建立连接，最多支持8张VLAN表</strong>
+                <form action="/pvl_set.cgi">
+                    <table class="LBORDER">
+                        <tr class=TABLE_HEAD>
+                            <td class=TD_NAME_COL width=120px>VLAN表</td>
+                            <td class=TD_NAME_COL width=560px>端口成员</td>
+                            <td class=TD_NAME_COL width=120px>删除</td>
+                        </tr>
+                        <script>
+                        for (var t_count, i = 0; i < t_num; i++)
+                            t_count = pvIds[i],
+                            docW("<tr>"),
+                            docW("<td>" + t_count + "</td>"),
+                            docW("<td>" + pbmToStr(pvMbrs[i]) + "</td>"),
+                            docW("<td><input type=checkbox name=selVlans id=vlan_" + t_count + " value=" + t_count + "></td>"),
+                            docW("</tr>")
+                    </script>
+                    </table>
+                    <script>
+                    VlanShowSet()
+                </script>
+                    <table align=center>
+                        <tr>
+                            <td><a class=BTN>
+                                <input type=button value=全选 name=SelectAll class=BTN_NORMAL_BTN onclick=selAllVlan()>
+                                </a></td>
+                            <td class=SBLANK></td>
+                            <td><a class=BTN>
+                                <input type=submit value=删除 name=pvlan_del class=BTN_NORMAL_BTN onclick="return pvlanDel()">
+                                </a></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </fieldset>
+    </div>
+    <!--left--> 
+</div>
+<script>
+        "" != tip && (ShowTips("sp_tip_svr", tip),
+        startDownScroll("div_tip_svr"))
+</script>
+</body>
+</html>

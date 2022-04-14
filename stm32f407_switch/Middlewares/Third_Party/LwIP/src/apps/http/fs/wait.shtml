@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="application; charset=utf-8" />
+<meta http-equiv="x-ua-compatible" content="edge" />
+<title>wait</title>
+<style>
+
+.loading { 
+
+width:0;
+
+height:0;
+
+border-right:30px solid #fff;
+
+border-top:30px solid #4A6EDE;
+
+border-left:30px solid #fff;
+
+border-bottom:30px solid #4A6EDE;
+
+border-radius: 30px;
+
+-moz-border-radius: 30px;
+
+-webkit-border-radius: 30px;
+
+}
+
+.loading {
+
+animation: bganim 1s linear 0s infinite;
+
+-moz-animation: bganim 1s linear 0s infinite;
+
+-webkit-animation: bganim 1s linear 0s infinite;
+
+}
+
+@keyframes bganim {
+
+from { transform:rotate(0deg); } to { transform:rotate(360deg); }
+
+}
+
+@-moz-keyframes bganim {
+
+from { -moz-transform:rotate(0deg); } to { -moz-transform:rotate(360deg); }
+
+}
+
+@-webkit-keyframes bganim {
+
+from { -webkit-transform:rotate(0deg); } to { -webkit-transform:rotate(360deg); }
+
+}   
+.TIME{
+    color:#5B5B5B;
+    font-size: 30px;
+}
+</style>
+</head>
+<body>
+<div class="loading"></div>
+</body>
+</html>

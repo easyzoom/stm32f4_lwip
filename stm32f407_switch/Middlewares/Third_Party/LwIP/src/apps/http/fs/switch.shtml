@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="init.js"></script>
+<script>
+incMeta(),
+incCss("css/in.css"),
+incJs("all.js");
+</script>
+<title>HR-LINK</title>
+<style>
+.hrlink { 
+    margin-top:0;
+    float: left;
+    height: 60px;
+	width: 250px;
+    background-color:#4A6EDE;
+}
+
+.hrlink h1 { color:#FFFFFF; text-shadow: 0px 10px 8px #000322; letter-spacing:2px;text-align:left;margin-bottom:20px;margin-left:20px;}
+</style>
+<script type="text/javascript">   
+<!--
+    var sw_s=1;
+    function actweb(ht){
+    	$id("frame").src = ht;
+	}
+    sleep(100);
+    function actfrom()
+    {
+    	if(sw_s == 1)
+        {
+            sw_s = 0;
+            actweb('basic_info.shtml');
+        }
+        else if(sw_s == 2)
+        {
+            sw_s = 0;
+           actweb('data_monitor.shtml');
+        }
+        else if(sw_s == 3)
+        {
+            sw_s = 0;
+           actweb('vlan_set.shtml');
+        }
+        else if(sw_s == 4)
+        {
+            sw_s = 0;
+           actweb('sys_setting.shtml');
+        }
+        else if(sw_s == 5)
+        {
+            sw_s = 0;
+           actweb('backup_recover.shtml');
+        }
+	}
+//-->
+</script>
+</head>
+<body onLoad="actfrom()"> 
+<!--#sw_page-->
+<div class ="center">
+	<div class="logo">
+    	<div class="hrlink" title="HR-LINK">
+            <h1>HR-LINK</h1>
+        </div>
+	</div>
+    <form name=fm_menu action="/fm_menu.cgi"  method=post>
+    <div class="menu">
+    	<ul class="nav">        
+            <li class="one" ><a title="查看基本信息" href="#"><input name="mn_bsif" type="submit" value=基本信息 href="#"></a></li> 
+            <li><a title="重要数据监控" href="#"><input name="mn_monitor" type="submit" value=数据监控></a></li> 
+            <li><a title="添加和删除VLAN表" href="#"><input name="mn_pvlt" type="submit" value=VLAN设置></a></li> 
+            <li><a title="设置系统IP等参数" href="#"><input name="mn_set"  type="submit" value=系统设置></a></li> 
+            <li><a title="导出当前系统配置或者通过配置文件导入配置" href="#"><input name="mn_bkrv" type="submit" value=备份恢复></a></li> 
+            <li><a title="退出后需要重新输入账号密码" href="#"><input name="mn_logout" type="submit" value=退出登录></a></li> 
+ 		</ul>
+    </div>
+    </form>
+    <div class=IF_FEILD>
+    	<iframe class=IF_FEILD  src="wait.shtml" frameborder="0" id="frame" scrolling="no" width="100%" height="100%" allowtransparency="true"></iframe>
+    </div> <!--changebox--> 
+</div>
+</body>
+</html>

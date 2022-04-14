@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="x-ua-compatible" content="edge" />
+<meta http-equiv="cache-control" content="no-store"/> 
+<link rel="icon" href="/images/favicon.ico">
+
+<title>HR-LINK</title>
+<style>
+
+    .login { 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -150px 0 0 -150px;
+    width:300px;
+    height:300px;
+}
+
+.login h1 { color:#FFFFFF; text-shadow: 0px 10px 8px #000322; letter-spacing:2px;text-align:center;margin-bottom:20px;}
+    
+*{margin:0;padding:0;box-sizing:border-box;}
+ 
+body{background-color:#4A6EDE;}
+
+
+
+input{
+    padding:10px;
+    width:100%;
+    color:white;
+    margin-bottom:10px;
+    background-color:#555555;
+    border: 1px solid black;
+    border-radius:4px;
+    letter-spacing:2px;
+}
+
+.BTN_LOGIN{
+    color:#000000;
+    width:100%;
+    padding:10px;
+    background-color:#FFFFFF;
+    border:2px solid black;
+    border-radius:4px;
+    cursor:pointer; 
+}                                                                                                                                                  
+</style>
+<script>
+    var pw_s=false;
+    function $id(a) {
+    return document.getElementById(a)
+    }
+    function actwin()
+    {
+    	if(pw_s == 1)
+        {
+            pw_s = false;
+            alert("账号错误,请重新输入");
+            $id("txt_user").focus();
+        }
+        else if(pw_s == 2)
+        {
+            pw_s = false;
+            alert("密码错误,请重新输入");
+            $id("txt_user").focus();
+        }
+        else if(pw_s == 3)
+        {
+            pw_s = false;
+            alert("未知错误");
+            $id("txt_user").focus();
+        }
+        else if(pw_s == 4)
+        {
+            pw_s = false;
+            alert("登录信息失效，请重新登录");
+            $id("txt_user").focus();
+        }
+        else if(pw_s == 5)
+        {
+            pw_s = false;
+            alert("账户已登录，请重新登录");
+            $id("txt_user").focus();
+        }
+        else if(pw_s)
+        {
+            pw_s = false;
+            $id("txt_user").focus();
+        }
+	}
+</script>
+</head>
+<body>
+<!--#pw_state-->
+<div class="login">
+    <h1>HR-LINK</h1>
+  <form action="/login.cgi" method=post>
+    <input type="text" name="user" placeholder="用户名" required="required" id="txt_user">
+    <input type="password" name="password" placeholder="密  码" required="required">
+    <input type="submit" name="btnli" class="BTN_LOGIN" value="登录">
+  </form>
+</div>
+<script>
+actwin()
+</script>
+</body>
+</html>

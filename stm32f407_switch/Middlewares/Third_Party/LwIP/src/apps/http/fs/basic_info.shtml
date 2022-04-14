@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="init.js"></script>
+<script>
+incMeta(),
+incCss("css/in.css"),
+incJs("all.js");
+</script>
+<title>infoShow</title>
+<script type="text/javascript">
+<!--
+var nf = {
+    desc: ["SWH100_MB100"],
+    mac: ["A4-B1-C1-3F-44-8D"],
+    ip: ["192.168.1.1"],
+    netmask: ["255.255.255.0"],
+    gateway: ["192.168.0.1"],
+    sw_ver: ["V1.0 Build 20210712"],
+    hw_ver: ["SWH100_MB100_V1.0"]
+};
+function loadValue() 
+{
+    $id("info_devicedescr").innerHTML = nf.desc;
+    $id("info_macaddress").innerHTML = nf.mac;
+    $id("info_ipaddress").innerHTML = nf.ip;
+    $id("info_netmask").innerHTML = nf.nm;
+    $id("info_gateway").innerHTML = nf.gw;
+    $id("info_sw_ver").innerHTML = nf.sv;
+    $id("info_hw_ver").innerHTML = nf.hv;
+}
+//-->
+</script>
+</head>
+<body onload="loadValue()">
+<!--#infoGet-->
+<div class=IF_FEILD>
+  <div class="binfo">
+    <fieldset>
+      <legend> <span id="systemInformation" class="CONTENT_TITLE">系统信息</span> </legend>
+      <table class="LBORDER" width="600">
+        <tr>
+          <td class="TD_NAME_COL" width="200"><span class="NORMAL" id="nm_devicedescr">设备名称：</span></td>
+          <td class="TD_CONTENT"><span class="NORMAL" id="info_devicedescr">SWH100_MB100</span></td>
+        </tr>
+        <tr>
+          <td class="TD_NAME_COL" width="200"><span class="NORMAL" id="nm_macaddress">MAC地址：</span></td>
+          <td class="TD_CONTENT"><span class="NORMAL" id="info_macaddress">A4-B1-C1-3F-44-8D</span></td>
+        </tr>
+        <tr>
+          <td class="TD_NAME_COL" width="200"><span class="NORMAL" id="nm_ipaddress">IP地址：</span></td>
+          <td class="TD_CONTENT"><span class="NORMAL" id="info_ipaddress">192.168.1.1</span></td>
+        </tr>
+        <tr>
+          <td class="TD_NAME_COL" width="200"><span class="NORMAL" id="nm_netmask">子网掩码：</span></td>
+          <td class="TD_CONTENT"><span class="NORMAL" id="info_netmask">255.255.255.0</span></td>
+        </tr>
+        <tr>
+          <td class="TD_NAME_COL" width="200"><span class="NORMAL" id="nm_gateway">默认网关：</span></td>
+          <td class="TD_CONTENT"><span class="NORMAL" id="info_gateway">192.168.0.1</span></td>
+        </tr>
+        <tr>
+          <td class="TD_NAME_COL" width="200"><span class="NORMAL" id="nm_sw_ver">软件版本：</span></td>
+          <td class="TD_CONTENT"><span class="NORMAL" id="info_sw_ver">V1.0 Build 20210712</span></td>
+        </tr>
+        <tr>
+          <td class="TD_NAME_COL" width="200"><span class="NORMAL" id="nm_hw_ver">硬件版本：</span></td>
+          <td class="TD_CONTENT"><span class="NORMAL" id="info_hw_ver">SWH100_MB100_V1.0</span></td>
+        </tr>  
+      </table>
+    </fieldset>
+  </div>
+  <!--left--> 
+</div>
+<!--total-->
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="init.js"></script>
+<script>
+incMeta(),
+incCss("css/in.css"),
+incJs("all.js");
+incJs("data_monitor.js");
+</script>
+<title>monitor</title>
+<script>
+<!--  
+    <!--#monitor-->
+    var s_nf = new Array("禁用","启用");
+    var lk_nf = new Array("断开","自动","10M半双工","10M全双工","100M半双工","100M全双工","200M半双工","200M全双工","1000M全双工","");
+    function dosubmitClear() 
+    {
+        return document.port_statistics.submit(),
+        !0
+    }
+    
+var xmlhttp;
+
+//-->
+</script>
+</head>
+<body onload="init()">
+<div id="div_tip_mask" class="TIP_MASK">
+        <div id="div_tip_svr" class="TIP">
+            <span id="sp_tip_svr" class="TIP_CONTENT"></span>
+        </div>
+</div>
+<div class=IF_FEILD>
+  <div class="dmonitor">
+    <form name=port_statistics action="/monitor.cgi" enctype=multipart/form-data>
+        <fieldset>
+            <legend>
+                <span id=portStatisticsInformation class="CONTENT_TITLE">数据监控</span>
+            </legend>
+            <div id=div_sec_title>
+                <table class="LBORDER">
+                    <script>
+                        var index, tmp_info2, all_info2, port_id, state, link_set, link_status, txs, txs_unit, rxs, rx_good, rx_bad, rx_unit, LineTd1 = "<td class=\"TABLE_HEAD_BOTTOM\" align=center width=80px ", LineTd2 = ">";
+                        for (docW("<tr class=TD_FIRST_ROW>"),
+                        docW(LineTd1 + LineTd2 + "端口"),
+                        docW("</td>"),
+                        docW(LineTd1 + LineTd2 + "禁启状态"),
+                        docW("</td>"),
+                        docW(LineTd1 + LineTd2 + "设置连接"),
+                        docW("</td>"),
+                        docW(LineTd1 + LineTd2 + "实际连接"),
+                        docW("</td>"),
+                        docW(LineTd1 + LineTd2 + "发送速率"),
+                        docW("</td>"),
+                        docW(LineTd1 + LineTd2 + "接收速率"),
+                        docW("</td>"),
+                        docW(LineTd1 + LineTd2 + "接收错包"),
+                        docW("</td>"),
+                        docW("</tr>"),
+                        index = 0; index < pmax; index++)
+                        {
+                           port = "端口 " + (port_id = index + 1);
+                            state = s_nf[d_nf.sw_s[index]];
+                            link_set = lk_nf[d_nf.lk_set[index]];  
+                            link_status = lk_nf[d_nf.lk_s[index]];
+                            txs = d_nf.txs[index*2];
+                            if(d_nf.txs[index*2+1] == 2)
+                            {
+                                txs_unit = "Mbps";
+                            }
+                            else if(d_nf.txs[index*2+1] == 1)
+                            {
+                                txs_unit = "Kbps";
+                            }
+                            else
+                            {
+                                txs_unit = "bps";
+                            }
+                            rxs = d_nf.rxs[index*2];
+                            if(d_nf.rxs[index*2+1] == 2)
+                            {
+                                rxs_unit = "Mbps";
+                            }
+                            else if(d_nf.rxs[index*2+1] == 1)
+                            {
+                                rxs_unit = "Kbps";
+                            }
+                            else
+                            {
+                                rxs_unit = "bps";
+                            }   
+                            rx_good = 0,
+                            rx_bad = 0,
+                            docW("<tr>");
+                            docW(LineTd1 + LineTd2 + port);
+                            docW("</td>"),
+                            docW(LineTd1 + "id=pstate" + index + LineTd2 + state),
+                            docW("</td>"),
+                            docW(LineTd1 + "id=plink_set" + index + LineTd2 + link_set),
+                            docW("</td>"),
+                            docW(LineTd1 + "id=plink_status" + index + LineTd2 + link_status),
+                            docW("</td>"),
+                            docW(LineTd1 + "id=ptxs" + index + LineTd2 + txs + txs_unit),
+                            docW("</td>"),
+                            docW(LineTd1 + "id=prxs" + index + LineTd2 + rxs + rxs_unit),
+                            docW("</td>"),
+                            docW(LineTd1 + "id=prx_bad" + index + LineTd2 + rx_bad),
+                            docW("</td>"),
+                            docW("</tr>") 
+                        }   
+                    </script>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+      <script>
+        
+    </script>
+  </div>
+  <!--left--> 
+</div>
+<!--total-->
+<script>
+        "" != tip && (ShowTips("sp_tip_svr", tip),
+        startDownScroll("div_tip_svr"))
+</script>
+</body>
+</html>
