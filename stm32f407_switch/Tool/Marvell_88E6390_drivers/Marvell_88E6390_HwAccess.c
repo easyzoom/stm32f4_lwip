@@ -206,7 +206,7 @@ MSD_STATUS msdGetAnyRegField
     MSD_U16 tmpData;
 		uint16_t state;
 	
-		MSD_DBG_INFO("(LOG RR): devAddr 0x%02x, regAddr 0x%02x ",
+		MSD_DBG_INFO("(LOG RR): devAddr 0x%02x, regAddr 0x%02x \r\n",
               devAddr,regAddr);
     state = mdio_read_regs(devAddr, regAddr, &tmpData);
 		if(state)
@@ -220,7 +220,7 @@ MSD_STATUS msdGetAnyRegField
     tmpData = (tmpData & mask) >> fieldOffset;
     *data = tmpData;
 
-    MSD_DBG_INFO("\tfOff %d, fLen %d, data 0x%04x.\n", fieldOffset, fieldLength, *data);
+    MSD_DBG_INFO("\tfOff %d, fLen %d, data 0x%04x.\r\n", fieldOffset, fieldLength, *data);
 
     return MSD_OK;
 }
