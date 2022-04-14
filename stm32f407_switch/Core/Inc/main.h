@@ -61,7 +61,7 @@ extern "C" {
 /* USER CODE BEGIN EM */
 void set_reboot(uint16_t time);
 int sys_default(void);
-void StartDefaultTask(void const * argument);
+void StartDefaultTask(void * argument);
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/

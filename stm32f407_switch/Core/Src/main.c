@@ -100,13 +100,15 @@ int main(void)
   MX_GPIO_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
   delay_init();
   state = fs_api_init();
   sys_info_config(state);
   printf("HR-LINK system starting...\r\n");
   /* USER CODE END 2 */
 
-  /* Call init function for freertos objects (in freertos.c) */
+  /* Init scheduler */
+  osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
   /* Start scheduler */
   osKernelStart();
@@ -242,7 +244,7 @@ void led_ctrl(void)
 }
 
 
-void StartDefaultTask(void const * argument)
+void StartDefaultTask(void * argument)
 {
   /* init code for LWIP */
   MX_LWIP_Init();

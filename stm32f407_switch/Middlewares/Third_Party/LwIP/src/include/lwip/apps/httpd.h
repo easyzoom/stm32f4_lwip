@@ -45,6 +45,7 @@
 #include "lwip/err.h"
 #include "lwip/pbuf.h"
 #include "fs.h"
+#include "lwip/altcp.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -123,7 +124,7 @@ struct http_state {
   struct fs_file *handle;
   const char *file;       /* Pointer to first unsent byte in buf. */
 
-  struct tcp_pcb *pcb;
+  struct altcp_pcb *pcb;
 #if LWIP_HTTPD_SUPPORT_REQUESTLIST
   struct pbuf *req;
 #endif /* LWIP_HTTPD_SUPPORT_REQUESTLIST */
