@@ -207,7 +207,7 @@ static void low_level_init(struct netif *netif)
 
 /* Init ETH */
 
-   uint8_t MACAddr[6] ;
+//   uint8_t MACAddr[6] ;
   heth.Instance = ETH;
   heth.Init.AutoNegotiation = ETH_AUTONEGOTIATION_DISABLE;
   heth.Init.Speed = ETH_SPEED_100M;

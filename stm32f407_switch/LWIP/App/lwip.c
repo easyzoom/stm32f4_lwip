@@ -123,7 +123,7 @@ void MX_LWIP_Init(void)
   link_arg.semaphore = Netif_LinkSemaphore;
   /* Create the Ethernet link handler thread */
 /* USER CODE BEGIN OS_THREAD_DEF_CREATE_CMSIS_RTOS_V1 */
-  osThreadDef(LinkThr, ethernetif_set_link, osPriorityBelowNormal, 0, 512);
+  osThreadDef(LinkThr, ethernetif_set_link, osPriorityBelowNormal, 0, 256);
   osThreadCreate (osThread(LinkThr), &link_arg);
 /* USER CODE END OS_THREAD_DEF_CREATE_CMSIS_RTOS_V1 */
 
