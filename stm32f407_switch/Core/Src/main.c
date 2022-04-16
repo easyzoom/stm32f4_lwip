@@ -101,6 +101,7 @@ int main(void)
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
   delay_init();
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
   state = fs_api_init();
   sys_info_config(state);
   printf("HR-LINK system starting...\r\n");

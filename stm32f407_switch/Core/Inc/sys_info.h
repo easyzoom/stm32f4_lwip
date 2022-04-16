@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 //系统支持的网口数量，SW_PORTS_NUMBER = 外接网口数量 + 1(此为MCU连接交换机的Port0,外接网口从Port1开始)
-#define SW_PORTS_NUMBER                     5
+#define SW_PORTS_NUMBER                     6
 #define SW_SOFTWARE_VERSION                 "V1.1 Build "__DATE__" "    //不大于26 byte
 #define SW_HARDWARE_VERSION                 "ROB042_MB201_V1.0"         //不大于20 byte
 #define SW_DEV_NAME                         "ROB042_MB201"              //不大于16 byte

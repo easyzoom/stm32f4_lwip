@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,USE_FULL_LL_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../LWIP/App;../LWIP/Target;../Middlewares/Third_Party/LwIP/src/include;../Middlewares/Third_Party/LwIP/system;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/Third_Party/LwIP/src/include/netif/ppp;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Middlewares/Third_Party/LwIP/src/include/lwip;../Middlewares/Third_Party/LwIP/src/include/lwip/apps;../Middlewares/Third_Party/LwIP/src/include/lwip/priv;../Middlewares/Third_Party/LwIP/src/include/lwip/prot;../Middlewares/Third_Party/LwIP/src/include/netif;../Middlewares/Third_Party/LwIP/src/include/compat/posix;../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;../Middlewares/Third_Party/LwIP/src/include/compat/stdc;../Middlewares/Third_Party/LwIP/system/arch;../Drivers/CMSIS/Include;../Middlewares/Third_Party/LwIP/src/apps/http;..\Tool\cjson;..\Tool\crc;..\Tool\littlefs;..\Tool\Marvell_88E6390_drivers;..\Tool\robot_debug</IncludePath>
+              <IncludePath>../Core/Inc;  ../LWIP/App;  ../LWIP/Target;  ../Middlewares/Third_Party/LwIP/src/include;  ../Middlewares/Third_Party/LwIP/system;  ../Drivers/STM32F4xx_HAL_Driver/Inc;  ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;  ../Middlewares/Third_Party/FreeRTOS/Source/include;  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;  ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;  ../Middlewares/Third_Party/LwIP/src/include/netif/ppp;  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;  ../Middlewares/Third_Party/LwIP/src/include/lwip;  ../Middlewares/Third_Party/LwIP/src/include/lwip/apps;  ../Middlewares/Third_Party/LwIP/src/include/lwip/priv;  ../Middlewares/Third_Party/LwIP/src/include/lwip/prot;  ../Middlewares/Third_Party/LwIP/src/include/netif;  ../Middlewares/Third_Party/LwIP/src/include/compat/posix;  ../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa;  ../Middlewares/Third_Party/LwIP/src/include/compat/posix/net;  ../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys;  ../Middlewares/Third_Party/LwIP/src/include/compat/stdc;  ../Middlewares/Third_Party/LwIP/system/arch;  ../Drivers/CMSIS/Include;  ../Middlewares/Third_Party/LwIP/src/apps/http;  ..\Tool\cjson;  ..\Tool\crc;  ..\Tool\littlefs;  ..\Tool\Marvell_88E6390_drivers;  ..\Tool\robot_debug</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -393,6 +393,31 @@
         <Group>
           <GroupName>Application/User/Core</GroupName>
           <Files>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>mdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\mdio.c</FilePath>
+            </File>
+            <File>
+              <FileName>switch_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\switch_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_info.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\sys_info.c</FilePath>
+            </File>
+            <File>
+              <FileName>httpd_cgi_ssi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\httpd_cgi_ssi.c</FilePath>
+            </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
@@ -478,31 +503,6 @@
               <FileName>stm32f4xx_hal_timebase_tim.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_timebase_tim.c</FilePath>
-            </File>
-            <File>
-              <FileName>delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>mdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\mdio.c</FilePath>
-            </File>
-            <File>
-              <FileName>switch_app.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\switch_app.c</FilePath>
-            </File>
-            <File>
-              <FileName>sys_info.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\sys_info.c</FilePath>
-            </File>
-            <File>
-              <FileName>httpd_cgi_ssi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\httpd_cgi_ssi.c</FilePath>
             </File>
           </Files>
         </Group>

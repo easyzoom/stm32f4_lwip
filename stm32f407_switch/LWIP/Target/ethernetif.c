@@ -30,8 +30,8 @@
 #include "cmsis_os.h"
 #include "lwip/tcpip.h"
 /* Within 'USER CODE' section, code will be kept by default at each generation */
-#include "switch_app.h"
 /* USER CODE BEGIN 0 */
+#include "switch_app.h"
 uint8_t MACAddr[6] ;
 /* USER CODE END 0 */
 
@@ -213,6 +213,12 @@ static void low_level_init(struct netif *netif)
   heth.Init.Speed = ETH_SPEED_100M;
   heth.Init.DuplexMode = ETH_MODE_FULLDUPLEX;
   heth.Init.PhyAddress = M88E6390_PHY_ADDRESS;
+//  MACAddr[0] = 0x00;
+//  MACAddr[1] = 0x80;
+//  MACAddr[2] = 0xE1;
+//  MACAddr[3] = 0x00;
+//  MACAddr[4] = 0x00;
+//  MACAddr[5] = 0x00;
   heth.Init.MACAddr = &MACAddr[0];
   heth.Init.RxMode = ETH_RXINTERRUPT_MODE;
   heth.Init.ChecksumMode = ETH_CHECKSUM_BY_HARDWARE;
@@ -612,7 +618,7 @@ void ethernetif_set_link(void const *argument)
 
   for(;;)
   {
-    /* Read PHY_BSR*/
+//    /* Read PHY_BSR*/
 //    HAL_ETH_ReadPHYRegister(&heth, PHY_BSR, &regvalue);
 
 //    regvalue &= PHY_LINKED_STATUS;
