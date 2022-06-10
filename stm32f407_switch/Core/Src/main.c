@@ -47,7 +47,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-uint16_t led_twinkle_t = 500;
+static uint32_t led_debug_1_tick = 0;
 uint8_t reboot_flag = 0;
 uint16_t reboot_timeout = 0;
 /* USER CODE END PM */
@@ -225,20 +225,10 @@ int sys_default(void)
  */
 void led_ctrl(void)
 {
-    static uint16_t led_t = 0;
-    
-    led_t++;
-    if(led_t < led_twinkle_t+1)
+    if (xTaskGetTickCount() >= led_debug_1_tick + 500)
     {
-        HAL_GPIO_WritePin(GPIOE, GPIO_PIN_10, GPIO_PIN_RESET); 
-    }
-    else if(led_t > led_twinkle_t && led_t < 2*led_twinkle_t)
-    {
-        HAL_GPIO_WritePin(GPIOE, GPIO_PIN_10, GPIO_PIN_SET);
-    }
-    else
-    {
-        led_t = 0;
+        HAL_GPIO_TogglePin(GPIOE, GPIO_PIN_10);
+        led_debug_1_tick = xTaskGetTickCount();
     }
 }
 
@@ -249,16 +239,16 @@ void StartDefaultTask(void const * argument)
   MX_LWIP_Init();
   /* USER CODE BEGIN StartDefaultTask */
   switch_cfg();
-  httpd_init();
-  httpd_ssi_init();
-  httpd_cgi_init();
+//  httpd_init();
+//  httpd_ssi_init();
+//  httpd_cgi_init();
   /* Infinite loop */
   for(;;)
   {
     led_ctrl();
-    web_login_monitor();
-    reboot();
-    switch_app();
+//    web_login_monitor();
+//    reboot();
+//    switch_app();
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
